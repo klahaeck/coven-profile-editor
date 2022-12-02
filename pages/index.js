@@ -9,8 +9,8 @@ export default function Home() {
   // Debug statements are useful for seeing when useSWR updates the profile during mutate vs. refetch
   // console.log(profile);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>{isError.message}</div>;
+  if (isLoading) return <Container className="pt-3"><h1>Loading...</h1></Container>;
+  if (isError) return <Container className="pt-3">{isError.message}</Container>;
 
   if (profile) {
     return (
