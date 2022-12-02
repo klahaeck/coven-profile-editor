@@ -58,7 +58,8 @@ export default function Edit() {
     var newData = {
       email: data.email,
       given_name: data.given_name,
-      family_name: data.family_name
+      family_name: data.family_name,
+      name: `${data.given_name} ${data.family_name}`,
     };
     // console.log(newData);
     updateUserSessionWithoutSWR(newData);
@@ -127,6 +128,7 @@ export default function Edit() {
   }
   return (
     <Container className="pt-3">
+      <CovenLogo />
       <Button href="/api/auth/login">Login to view profile</Button>
     </Container>
   );

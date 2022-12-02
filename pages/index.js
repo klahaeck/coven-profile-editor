@@ -42,6 +42,7 @@ export default function Home() {
   } else {
     return (
       <Container className="pt-3">
+        <CovenLogo />
         <Button as="a" href="/api/auth/login">Login</Button>
       </Container>
     );
