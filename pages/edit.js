@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useProfile } from '../lib/user-profile';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import CovenLogo from '../components/CovenLogo';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -71,12 +72,23 @@ export default function Edit() {
     router.replace(`${process.env.NEXT_PUBLIC_MIGHTY_NETWORKS_URL}/your-settings/profile`);
   }
   
-  if (isLoading) return <Container className="pt-3"><h1>Loading...</h1></Container>;
-  if (isError) return <Container className="pt-3">{isError.message}</Container>;
+  if (isLoading) return (
+    <Container className="pt-3">
+      <CovenLogo />
+      <h1>Loading...</h1>
+    </Container>
+  );
+  if (isError) return (
+    <Container className="pt-3">
+      <CovenLogo />
+      {isError.message}
+    </Container>
+  );
 
   if (profile) {
     return (
       <Container className="pt-3">
+        <CovenLogo />
         <h1 className="mb-4">Update your profile</h1>
         
         <div className="mb-4">

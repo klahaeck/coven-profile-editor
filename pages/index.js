@@ -1,6 +1,7 @@
 import { useProfile } from '../lib/user-profile';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import CovenLogo from '../components/CovenLogo';
 
 export default function Home() {
   // Retrieve user profile from our custom React hook
@@ -9,12 +10,24 @@ export default function Home() {
   // Debug statements are useful for seeing when useSWR updates the profile during mutate vs. refetch
   // console.log(profile);
 
-  if (isLoading) return <Container className="pt-3"><h1>Loading...</h1></Container>;
-  if (isError) return <Container className="pt-3">{isError.message}</Container>;
+  if (isLoading) return (
+    <Container className="pt-3">
+      <CovenLogo />
+      <h1>Loading...</h1>
+    </Container>
+  );
+
+  if (isError) return (
+    <Container className="pt-3">
+      <CovenLogo />
+      {isError.message}
+    </Container>
+  );
 
   if (profile) {
     return (
       <Container className="pt-3">
+        <CovenLogo />
         <h1 className="mb-3">Your profile</h1>
         <div className="mb-3">
           <p><b>Email:</b> {profile?.email}</p>
