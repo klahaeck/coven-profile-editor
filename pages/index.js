@@ -17,8 +17,9 @@ export default function Home() {
       <Container className="pt-3">
         <h1 className="mb-3">Your profile</h1>
         <div className="mb-3">
-          <b>First Name:</b> {profile?.given_name} <br></br>
-          <b>Last Name:</b> {profile?.family_name} <br></br>
+          <p><b>Email:</b> {profile?.email}</p>
+          <p><b>First Name:</b> {profile?.given_name}</p>
+          <p><b>Last Name:</b> {profile?.family_name}</p>
         </div>
         
         <Button variant="primary" href="/edit" className="me-2">Edit profile</Button>

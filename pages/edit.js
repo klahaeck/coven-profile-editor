@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { useProfile } from '../lib/user-profile';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import NProgress from 'nprogress';
 
 export default function Edit() {
+  const [ passwordReset, setPasswordReset ] = useState(false);
   const router = useRouter();
 
   // Retrieve user profile from our custom React hook
@@ -27,9 +29,33 @@ export default function Edit() {
     reset(profile);
   }, [profile]);
 
+  const passwordResetHandler = async () => {
+    // console.log(profile.email);
+    fetch('/api/auth/change_password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: profile.email,
+      })
+    })
+      .then(res => {
+        if (res.status === 200) {
+          // alert('Password reset email sent!');
+          setPasswordReset(true);
+        } else {
+          alert('Error sending password reset email.');
+        }
+      })
+      .catch(error => console.error(error));
+  };
+    // Debug statements are useful for seeing when useSWR updates the profile during mutate and refetch
+
   const onSubmit = data => {
     // console.log(data);
     var newData = {
+      email: data.email,
       given_name: data.given_name,
       family_name: data.family_name
     };
@@ -51,8 +77,22 @@ export default function Edit() {
   if (profile) {
     return (
       <Container className="pt-3">
-        <h1>Update your profile</h1>
+        <h1 className="mb-4">Update your profile</h1>
+        
+        <div className="mb-4">
+          {!passwordReset && <Button onClick={() => passwordResetHandler()}>Click here to reset your password</Button>}
+          {passwordReset && <p className="h5">A password reset email has been sent to your email address.<br />Please follow the instructions in the email.</p>}
+        </div>
+
         <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control {...register('email', {
+              required: true,
+              pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+            })} placeholder="Enter your email address" disabled />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="given_name">
             <Form.Label>First Name</Form.Label>
             <Form.Control {...register('given_name', { required: true })} placeholder="Enter your first name" />
