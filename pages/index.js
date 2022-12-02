@@ -26,7 +26,11 @@ export default function Home() {
       </Container>
     );
   } else {
-    return (<Button as="a" href="/api/auth/login">Login</Button>);
+    return (
+      <Container className="pt-3">
+        <Button as="a" href="/api/auth/login">Login</Button>
+      </Container>
+    );
   }
 
   

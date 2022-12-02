@@ -73,5 +73,9 @@ export default function Edit() {
       </Container>
     );
   }
-  return <Button href="/api/auth/login">Login to view profile</Button>;
+  return (
+    <Container className="pt-3">
+      <Button href="/api/auth/login">Login to view profile</Button>;
+    </Container>
+  );
 }
