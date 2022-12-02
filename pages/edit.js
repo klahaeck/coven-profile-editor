@@ -75,7 +75,7 @@ export default function Edit() {
   }
   return (
     <Container className="pt-3">
-      <Button href="/api/auth/login">Login to view profile</Button>;
+      <Button href="/api/auth/login">Login to view profile</Button>
     </Container>
   );
 }
